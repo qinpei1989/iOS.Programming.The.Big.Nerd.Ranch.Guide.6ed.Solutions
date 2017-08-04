@@ -41,6 +41,9 @@ class ViewController: UIViewController {
         nextQuestionLabel.alpha = 0
     }
     
+    /*
+     * Bronze Challenge: Spring Animations
+     */
     func animateLabelTransitions() {
         
         view.layoutIfNeeded()
@@ -48,20 +51,22 @@ class ViewController: UIViewController {
         let screenWidth = view.frame.width
         self.nextQuestionLabelCenterXConstraint.constant = 0
         self.currentQuestionLabelCenterXConstraint.constant += screenWidth
-        
-        UIView.animate(withDuration: 0.5,
+
+        UIView.animate(withDuration: 2,
             delay: 0,
-            options: [.curveLinear],
+            usingSpringWithDamping: 0.3,
+            initialSpringVelocity: 0.0,
+            options: .curveEaseInOut,
             animations: {
                 self.currentQuestionLabel.alpha = 0
                 self.nextQuestionLabel.alpha = 1
-                
+
                 self.view.layoutIfNeeded()
             },
             completion: { _ in
                 swap(&self.currentQuestionLabel, &self.nextQuestionLabel)
                 swap(&self.currentQuestionLabelCenterXConstraint, &self.nextQuestionLabelCenterXConstraint)
-                
+            
                 self.updateOffScreenLabel()
         })
     }
