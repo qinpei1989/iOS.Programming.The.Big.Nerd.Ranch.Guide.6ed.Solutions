@@ -50,6 +50,26 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
+        /*
+         * Bronze Challenge: Disallow Alphabetic Characters
+         *
+         * 1. Create an NSCharacterSet object that contains only valid input characters.
+         * 2. If replacementString contains invalid characters, replacement is not allowed.
+         */
+        
+        // If "delete" key is pressed, string has a length of 0
+        if string.characters.count == 0 {
+            return true
+        }
+        
+        let allowedCharacterSet = NSCharacterSet(charactersIn: "-0123456789.")
+        let replacementStringsValidRange = string.rangeOfCharacter(from: allowedCharacterSet as CharacterSet)
+        
+        if replacementStringsValidRange == nil {
+            print("Invalid input detected.")
+            return false
+        }
+        
         let existingTextHasDecimalSeparator = textField.text?.range(of: ".")
         let replacementTextHasDecimalSeparator = string.range(of: ".")
         
