@@ -2,12 +2,17 @@
 //  Copyright © 2015 Big Nerd Ranch
 //
 
+/*
+ * Silver Challenge: User’s Location
+ */
+
 import UIKit
 import MapKit
 
 class MapViewController: UIViewController {
     
     var mapView: MKMapView!
+    var userLocationButton: UIButton!
     
     override func loadView() {
         // Create a map view
@@ -35,6 +40,18 @@ class MapViewController: UIViewController {
         topConstraint.isActive = true
         leadingConstraint.isActive = true
         trailingConstraint.isActive = true
+        
+        /* Add a new button at the bottom right of mapView to show user's current location */
+        userLocationButton = UIButton(type: .infoLight)
+        userLocationButton.addTarget(self, action: #selector(updateUserLocation(_:)), for: .touchUpInside)
+        /* set translatesAutoresizingMaskIntoConstraints to false if auto layout is used */
+        userLocationButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(userLocationButton)
+        let userLocationButtonBottomConstraint = userLocationButton.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -20)
+        let userLocationButtonTrailingConstraint = userLocationButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
+        userLocationButtonBottomConstraint.isActive = true
+        userLocationButtonTrailingConstraint.isActive = true
+
     }
     
     func mapTypeChanged(_ segControl: UISegmentedControl) {
@@ -50,6 +67,33 @@ class MapViewController: UIViewController {
         }
     }
     
+    func updateUserLocation(_ button: UIButton) {
+        print(#function)
+        
+        let authorizationStatus = CLLocationManager.authorizationStatus()
+        if authorizationStatus == .notDetermined {
+            CLLocationManager().requestWhenInUseAuthorization()
+            return
+        } else if authorizationStatus == .denied || authorizationStatus == .restricted {
+            print("Unable to locate user")
+            return
+        }
+        
+        mapView.showsUserLocation = true
+        mapView.setUserTrackingMode(.follow, animated: true)
+    }
+    
+    /*
+     * Another way to show user's location is to implement setUserTrackingMode(_:animated:) in MKMapViewDelegate,
+     * instead of calling setUserTrackingMode(_: animated)
+     */
+    /*
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        let region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 1000, 1000)
+        mapView.setRegion(region, animated: true)
+    }
+    */
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
