@@ -73,4 +73,24 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    /*
+     * Silver Challenge: Dark Mode
+     */
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        /*
+         * 1st challenge: change background color when current time is 8pm ~ 8am
+         */
+        let hour = Calendar.current.component(.hour, from: Date())
+        if hour < 8 || hour >= 20 {
+            view.backgroundColor = UIColor.lightGray
+        } else {
+            view.backgroundColor = UIColor.white
+        }
+        /*
+         * 2nd challenge: randomly generate RGB value for background color
+         */
+        //view.backgroundColor = UIColor(red: CGFloat(arc4random_uniform(256))/255.0, green: CGFloat(arc4random_uniform(256))/255.0, blue: CGFloat(arc4random_uniform(256))/255.0, alpha: 1.0)
+    }
+    
 }
