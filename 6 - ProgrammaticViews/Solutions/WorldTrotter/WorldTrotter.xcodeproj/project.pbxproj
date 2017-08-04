@@ -16,6 +16,7 @@
 		6BB4AB641B7A5D4200967615 /* WorldTrotterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB4AB631B7A5D4200967615 /* WorldTrotterUITests.swift */; };
 		6BB4AB721B7BD4C500967615 /* ConversionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB4AB711B7BD4C500967615 /* ConversionViewController.swift */; };
 		6BB4AB781B7BFBA700967615 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB4AB771B7BFBA700967615 /* MapViewController.swift */; };
+		F2AE0D9A1F34157B00680FFD /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AE0D991F34157B00680FFD /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		6BB4AB651B7A5D4200967615 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BB4AB711B7BD4C500967615 /* ConversionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversionViewController.swift; sourceTree = "<group>"; };
 		6BB4AB771B7BFBA700967615 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		F2AE0D991F34157B00680FFD /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				6BB4AB431B7A5D4200967615 /* AppDelegate.swift */,
 				6BB4AB471B7A5D4200967615 /* Main.storyboard */,
 				6BB4AB771B7BFBA700967615 /* MapViewController.swift */,
+				F2AE0D991F34157B00680FFD /* WebViewController.swift */,
 				6BB4AB4A1B7A5D4200967615 /* Assets.xcassets */,
 				6BB4AB4C1B7A5D4200967615 /* LaunchScreen.storyboard */,
 				6BB4AB4F1B7A5D4200967615 /* Info.plist */,
@@ -276,6 +279,7 @@
 				6BB4AB721B7BD4C500967615 /* ConversionViewController.swift in Sources */,
 				6BB4AB781B7BFBA700967615 /* MapViewController.swift in Sources */,
 				6BB4AB441B7A5D4200967615 /* AppDelegate.swift in Sources */,
+				F2AE0D9A1F34157B00680FFD /* WebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
