@@ -108,4 +108,11 @@ class ItemsViewController: UITableViewController {
             
             return cell
     }
+    
+    /*
+     * Bronze Challenge: Renaming the Delete Button
+     */
+    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Remove"
+    }
 }
