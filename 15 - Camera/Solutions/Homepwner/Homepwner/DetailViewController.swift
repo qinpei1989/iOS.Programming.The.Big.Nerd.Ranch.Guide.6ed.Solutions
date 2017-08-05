@@ -34,6 +34,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         return formatter
     }()
     
+    /*
+     * Bronze Challenge: Editing an Image
+     *
+     * 1. imagePicker.allowsEditing = true
+     * 2. info[UIImagePickerControllerEditedImage] is a UIImage that user can edit
+     */
     @IBAction func takePicture(_ sender: UIBarButtonItem) {
         
         let imagePicker = UIImagePickerController()
@@ -47,6 +53,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         }
         
         imagePicker.delegate = self
+        imagePicker.allowsEditing = true
         
         // Place image picker on the screen
         present(imagePicker, animated: true, completion: nil)
@@ -56,7 +63,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         didFinishPickingMediaWithInfo info: [String: Any]) {
             
             // Get picked image from info dictionary
-            let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+            let image = info[UIImagePickerControllerEditedImage] as! UIImage
             
             // Store the image in the ImageStore for the item's key
             imageStore.setImage(image, forKey: item.itemKey)
