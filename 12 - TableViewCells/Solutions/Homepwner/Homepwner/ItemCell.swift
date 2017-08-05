@@ -18,4 +18,22 @@ class ItemCell: UITableViewCell {
         valueLabel.adjustsFontForContentSizeCategory = true
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateValueLabelTextColor()
+    }
+    
+    func updateValueLabelTextColor() {
+        if let labelText = valueLabel.text {
+            let startIndex = labelText.index(labelText.startIndex, offsetBy: 1)
+            if let dollar = Double(labelText.substring(from: startIndex)) {
+                if dollar < 50 {
+                    valueLabel.textColor = UIColor.green
+                } else {
+                    valueLabel.textColor = UIColor.red
+                }
+            }
+        }
+    }
 }
