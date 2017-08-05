@@ -49,6 +49,33 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         // just pick from photo library
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             imagePicker.sourceType = .camera
+            /*
+             * Gold Challenge: Camera Overlay
+             *
+             * Create a UIView object, add a UILabel with "+" as its subview, then set this UIView to
+             * imagePicker.cameraOverlayView
+             */
+            let cameraOverlayView = UIView(frame: (imagePicker.cameraOverlayView?.frame)!)
+            let crosshairLabel = UILabel()
+            crosshairLabel.text = "+"
+            crosshairLabel.textColor = UIColor.yellow
+            crosshairLabel.font = UIFont.systemFont(ofSize: 50)
+            crosshairLabel.translatesAutoresizingMaskIntoConstraints = false
+            
+            cameraOverlayView.addSubview(crosshairLabel)
+            /*
+             * If cameraOverlayView.isUserInteractionEnabled is true, camera control buttons will not work since
+             * cameraOverlayView is on top of the image picker interface
+             */
+            cameraOverlayView.isUserInteractionEnabled = false
+            
+            let centerXConstraint = crosshairLabel.centerXAnchor.constraint(equalTo: cameraOverlayView.centerXAnchor)
+            let centerYConstraint = crosshairLabel.centerYAnchor.constraint(equalTo: cameraOverlayView.centerYAnchor)
+            
+            centerXConstraint.isActive = true
+            centerYConstraint.isActive = true
+            
+            imagePicker.cameraOverlayView = cameraOverlayView
         } else {
             imagePicker.sourceType = .photoLibrary
         }
