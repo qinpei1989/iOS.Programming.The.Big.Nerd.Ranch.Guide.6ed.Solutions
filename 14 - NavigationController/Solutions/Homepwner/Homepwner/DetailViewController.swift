@@ -76,4 +76,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         
         valueField.keyboardType = .numberPad
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "changeDate"?:
+            let dateViewController = segue.destination as! DateViewController
+            dateViewController.item = item
+        default:
+            preconditionFailure("Unexpected segue identifier.")
+        }
+    }
 }

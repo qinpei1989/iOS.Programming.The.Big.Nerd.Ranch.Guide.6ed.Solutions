@@ -150,11 +150,18 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Date Created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LX7-pV-1D4">
-                                        <rect key="frame" x="0.0" y="114" width="343" height="473"/>
+                                        <rect key="frame" x="0.0" y="114" width="343" height="435"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ecQ-EG-oQi">
+                                        <rect key="frame" x="0.0" y="557" width="343" height="30"/>
+                                        <state key="normal" title="Change Date"/>
+                                        <connections>
+                                            <segue destination="U23-ng-VQm" kind="show" identifier="changeDate" id="CAf-zM-37n"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="bJs-PY-usd" firstAttribute="leading" secondItem="YVF-QU-lDs" secondAttribute="leading" id="UTv-Zj-ZmP"/>
@@ -189,6 +196,40 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1942" y="361"/>
+        </scene>
+        <!--Date View Controller-->
+        <scene sceneID="DM3-IY-R5S">
+            <objects>
+                <viewController id="U23-ng-VQm" customClass="DateViewController" customModule="Homepwner" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EPR-58-pf1"/>
+                        <viewControllerLayoutGuide type="bottom" id="1QR-E4-dUU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1T6-9C-JOr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ohn-4d-N52">
+                                <rect key="frame" x="0.0" y="225" width="375" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="523617696.91733098">
+                                    <!--2017-08-05 09:21:36 +0000-->
+                                </date>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ohn-4d-N52" firstAttribute="top" secondItem="EPR-58-pf1" secondAttribute="bottom" constant="161" id="O5e-6T-Ghe"/>
+                            <constraint firstItem="ohn-4d-N52" firstAttribute="leading" secondItem="1T6-9C-JOr" secondAttribute="leading" id="TgU-yJ-nw9"/>
+                            <constraint firstAttribute="trailing" secondItem="ohn-4d-N52" secondAttribute="trailing" id="b3A-46-Dqq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="datePicker" destination="ohn-4d-N52" id="YQt-vw-44h"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WPJ-d2-zUr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2867" y="360"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ZSO-SD-LJw">
