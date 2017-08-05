@@ -11,6 +11,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
     @IBOutlet var valueField: UITextField!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
+    @IBOutlet weak var deleteImageButton: UIButton!
     
     var item: Item! {
         didSet {
@@ -83,6 +84,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         serialNumberField.text = item.serialNumber
         valueField.text = numberFormatter.string(from: NSNumber(value: item.valueInDollars))
         dateLabel.text = dateFormatter.string(from: item.dateCreated)
+        deleteImageButton.alpha = 0.0
         
         // Get the item key
         let key = item.itemKey
@@ -91,6 +93,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         if let imageToDisplay = imageStore.image(forKey: key) {
             // ... display it on the image view
             imageView.image = imageToDisplay
+            deleteImageButton.alpha = 1.0
         }
     }
     
@@ -119,5 +122,32 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    /*
+     * Silver Challenge: Removing an Image
+     *
+     * Add a new button, then set its alpha to 1.0 when an image is picked and set it to 0.0
+     * when there's no image
+     */
+    @IBAction func deleteImageButtonTapped(_ sender: UIButton) {
+        let title = "Delete this image?"
+        let message = "Are you sure you want to delete this image?"
+        
+        let ac = UIAlertController(title: title,
+                                   message: message,
+                                   preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        ac.addAction(cancelAction)
+        
+        let deleteAction = UIAlertAction(title: "Delete",
+                                         style: .destructive,
+                                         handler: { (action) -> Void in
+                                            self.imageView.image = nil
+                                            self.deleteImageButton.alpha = 0.0
+        })
+        ac.addAction(deleteAction)
+        present(ac, animated: true, completion: nil)
     }
 }
