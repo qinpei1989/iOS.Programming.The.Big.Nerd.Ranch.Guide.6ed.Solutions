@@ -24,27 +24,33 @@ class ItemsViewController: UITableViewController {
         if section == 0 {
             return itemStore.expensiveItems.count
         } else {
-            return itemStore.cheapItems.count
+            return itemStore.cheapItems.count + 1
         }
     }
     
+    /*
+     * Silver Challenge: Constant Rows
+     */
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create an instance of UITableViewCell, with default appearance
         let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
         
-        // Set the text on the cell with the description of the item
-        // that is at the nth index of items, where n = row this cell
-        // will appear in on the tableview
-        let item: Item
-        
-        if indexPath.section == 0 {
-            item = itemStore.expensiveItems[indexPath.row]
+        /* The last row of the last section should display "No more items!" */
+        if indexPath.section == 1 && indexPath.row == itemStore.cheapItems.count {
+            cell.textLabel?.text = "No more items!"
+            cell.detailTextLabel?.text = ""
         } else {
-            item = itemStore.cheapItems[indexPath.row]
+            let item: Item
+            
+            if indexPath.section == 0 {
+                item = itemStore.expensiveItems[indexPath.row]
+            } else {
+                item = itemStore.cheapItems[indexPath.row]
+            }
+            
+            cell.textLabel?.text = item.name
+            cell.detailTextLabel?.text = "$\(item.valueInDollars)"
         }
-        
-        cell.textLabel?.text = item.name
-        cell.detailTextLabel?.text = "$\(item.valueInDollars)"
         
         return cell
     }
