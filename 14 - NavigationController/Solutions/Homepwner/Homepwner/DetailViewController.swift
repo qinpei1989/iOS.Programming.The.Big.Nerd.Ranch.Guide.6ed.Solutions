@@ -67,4 +67,13 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    /*
+     * Bronze Challenge: Displaying a Number Pad
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        valueField.keyboardType = .numberPad
+    }
 }
