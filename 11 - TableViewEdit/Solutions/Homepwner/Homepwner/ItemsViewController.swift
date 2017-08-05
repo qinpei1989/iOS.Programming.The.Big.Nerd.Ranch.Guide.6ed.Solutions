@@ -128,5 +128,27 @@ class ItemsViewController: UITableViewController {
             return true
         }
     }
+    
+    /*
+     * Gold Challenge: Really Preventing Reordering
+     *
+     * 1. The final row cannot be editted
+     * 2. Other rows can only be moved to any location above the final one
+     */
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == itemStore.allItems.count {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        if proposedDestinationIndexPath.row < itemStore.allItems.count {
+            return proposedDestinationIndexPath
+        } else {
+            return sourceIndexPath
+        }
+    }
 
 }
