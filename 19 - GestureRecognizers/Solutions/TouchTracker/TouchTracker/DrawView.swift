@@ -33,9 +33,29 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
             if selectedLineIndex == nil {
                 let menu = UIMenuController.shared
                 menu.setMenuVisible(false, animated: true)
+            } else {
+                longPressSelectedLineIndex = nil
             }
         }
     }
+    
+    /*
+     * Silver Challenge: Mysterious Lines
+     *
+     * 1. Add a longPressSelectedLineIndex, which can be set when a long press is detected on a line
+     * 2. UIPanGestureRecognizer works only when longPressSelectedLineIndex is not nil
+     */
+    var longPressSelectedLineIndex: Int? {
+        didSet {
+            if longPressSelectedLineIndex == nil {
+                let menu = UIMenuController.shared
+                menu.setMenuVisible(false, animated: true)
+            } else {
+                selectedLineIndex = nil
+            }
+        }
+    }
+    
     var moveRecognizer: UIPanGestureRecognizer!
     
     override var canBecomeFirstResponder: Bool {
@@ -76,7 +96,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
         print("Recognized a pan")
         
         // If a line is selected...
-        if let index = selectedLineIndex {
+        if let index = longPressSelectedLineIndex {
             // When the pan recognizer changes its position...
             if gestureRecognizer.state == .changed {
                 // How far has the pan moved?
@@ -104,6 +124,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
         print("Recognized a double tap")
         
         selectedLineIndex = nil
+        longPressSelectedLineIndex = nil
         currentLines.removeAll()
         finishedLines.removeAll()
         setNeedsDisplay()
@@ -114,13 +135,13 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
         
         if gestureRecognizer.state == .began {
             let point = gestureRecognizer.location(in: self)
-            selectedLineIndex = indexOfLine(at: point)
+            longPressSelectedLineIndex = indexOfLine(at: point)
             
-            if selectedLineIndex != nil {
+            if longPressSelectedLineIndex != nil {
                 currentLines.removeAll()
             }
         } else if gestureRecognizer.state == .ended {
-            selectedLineIndex = nil
+            longPressSelectedLineIndex = nil
         }
         
         setNeedsDisplay()
@@ -161,6 +182,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
         if let index = selectedLineIndex {
             finishedLines.remove(at: index)
             selectedLineIndex = nil
+            longPressSelectedLineIndex = nil
             
             // Redraw everything
             setNeedsDisplay()
@@ -213,6 +235,12 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
         
         if let index = selectedLineIndex {
             UIColor.green.setStroke()
+            let selectedLine = finishedLines[index]
+            stroke(selectedLine)
+        }
+        
+        if let index = longPressSelectedLineIndex {
+            UIColor.orange.setStroke()
             let selectedLine = finishedLines[index]
             stroke(selectedLine)
         }
