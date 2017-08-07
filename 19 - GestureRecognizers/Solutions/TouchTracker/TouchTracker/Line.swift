@@ -9,4 +9,6 @@ struct Line {
     
     var begin = CGPoint.zero
     var end = CGPoint.zero
+    
+    var thickness: CGFloat = 10
 }

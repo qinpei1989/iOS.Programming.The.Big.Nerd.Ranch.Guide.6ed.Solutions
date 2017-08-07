@@ -62,6 +62,21 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
         return true
     }
     
+    /*
+     * Gold Challenge: Speed and Size
+     * 
+     * Record the max and min speed. The faster you draw, the thinner the line will be.
+     */
+    var minRecordedVelocity: CGFloat = CGFloat.greatestFiniteMagnitude
+    var maxRecordedVelocity: CGFloat = CGFloat.leastNonzeroMagnitude
+    var currentVelocity: CGFloat = 0
+    var currentLineThickness: CGFloat {
+        let minLineThickness: CGFloat = 1
+        let maxLineThickness: CGFloat = 20
+        return (maxRecordedVelocity - currentVelocity) / (maxRecordedVelocity - minRecordedVelocity) *
+            (maxLineThickness - minLineThickness - 1) + minLineThickness
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -94,6 +109,16 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     
     func moveLine(_ gestureRecognizer: UIPanGestureRecognizer) {
         print("Recognized a pan")
+        
+        let currentVelocityInXY = gestureRecognizer.velocity(in: self)
+        currentVelocity = hypot(currentVelocityInXY.x, currentVelocityInXY.y)
+        maxRecordedVelocity = max(maxRecordedVelocity, currentVelocity)
+        minRecordedVelocity = min(minRecordedVelocity, currentVelocity)
+        
+        print("Current line width: \(currentLineThickness)")
+        print("Current velocity: \(currentVelocity)")
+        print("Max recorded velocity: \(maxRecordedVelocity)")
+        print("Min recorded velocity: \(minRecordedVelocity)")
         
         // If a line is selected...
         if let index = longPressSelectedLineIndex {
@@ -191,7 +216,8 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     
     func stroke(_ line: Line) {
         let path = UIBezierPath()
-        path.lineWidth = lineThickness
+        //path.lineWidth = lineThickness
+        path.lineWidth = line.thickness
         path.lineCapStyle = .round
         
         path.move(to: line.begin)
@@ -253,7 +279,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
         for touch in touches {
             let location = touch.location(in: self)
             
-            let newLine = Line(begin: location, end: location)
+            let newLine = Line(begin: location, end: location, thickness: currentLineThickness)
             
             let key = NSValue(nonretainedObject: touch)
             currentLines[key] = newLine
@@ -282,7 +308,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
             let key = NSValue(nonretainedObject: touch)
             if var line = currentLines[key] {
                 line.end = touch.location(in: self)
-                
+                line.thickness = currentLineThickness
                 finishedLines.append(line)
                 currentLines.removeValue(forKey: key)
             }
