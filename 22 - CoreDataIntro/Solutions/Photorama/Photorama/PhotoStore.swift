@@ -139,4 +139,12 @@ class PhotoStore {
         task.resume()
     }
     
+    func saveContext() {
+        let viewContext = persistentContainer.viewContext
+        do {
+            try viewContext.save()
+        } catch {
+            print("Error saving context \(error).")
+        }
+    }
 }
