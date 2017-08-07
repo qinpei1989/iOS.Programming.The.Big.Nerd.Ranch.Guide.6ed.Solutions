@@ -77,3 +77,21 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate {
         }
     }
 }
+
+/*
+ * Silver Challenge: Updated Item Sizes
+ */
+extension PhotosViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let spacingBetweenCells: CGFloat = 2
+        let numberOfItemsPerRow = 4
+        let availableCollectionViewWidth = collectionView.bounds.size.width - spacingBetweenCells * (CGFloat)(numberOfItemsPerRow + 1)
+        let itemWidth = availableCollectionViewWidth / 4
+        
+        return CGSize(width: itemWidth, height: itemWidth)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView.reloadData()
+    }
+}
