@@ -64,7 +64,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     
     /*
      * Gold Challenge: Speed and Size
-     * 
+     *
      * Record the max and min speed. The faster you draw, the thinner the line will be.
      */
     var minRecordedVelocity: CGFloat = CGFloat.greatestFiniteMagnitude
@@ -95,9 +95,23 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
                                                                action: #selector(DrawView.longPress(_:)))
         addGestureRecognizer(longPressRecognizer)
         
+        /*
+         * Platinum Challenge: Colors
+         *
+         * 1. Add a UISwipeGestureRecognizer, set delaysTouchesBegan to true so that no lines will be drawn when swiping
+         * 2. Add moveRecognizer.require(toFail: swipeGestureRecognizer) since pan will also be recognized when swiping
+         * 3. Add a UIMenuController as the color panel
+         */
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(DrawView.showPanel(_:)))
+        swipeGestureRecognizer.numberOfTouchesRequired = 3
+        swipeGestureRecognizer.direction = .up
+        swipeGestureRecognizer.delaysTouchesBegan = true
+        addGestureRecognizer(swipeGestureRecognizer)
+        
         moveRecognizer = UIPanGestureRecognizer(target: self, action: #selector(DrawView.moveLine(_:)))
         moveRecognizer.delegate = self
         moveRecognizer.cancelsTouchesInView = false
+        moveRecognizer.require(toFail: swipeGestureRecognizer)
         addGestureRecognizer(moveRecognizer)
     }
     
@@ -105,6 +119,44 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
                            shouldRecognizeSimultaneouslyWith
         otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+    
+    func showPanel(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        print("Recognized a swipe")
+        
+        currentLines.removeAll()
+        let menu = UIMenuController.shared
+        becomeFirstResponder()
+        
+        let colorRedItem = UIMenuItem(title: "Red", action: #selector(DrawView.selectRedColor(_:)))
+        let colorYellowItem = UIMenuItem(title: "Yellow", action: #selector(DrawView.selectYellowColor(_:)))
+        let colorGreenItem = UIMenuItem(title: "Green", action: #selector(DrawView.selectGreenColor(_:)))
+        let colorBlueItem = UIMenuItem(title: "Blue", action: #selector(DrawView.selectBlueColor(_:)))
+        menu.menuItems = [colorRedItem, colorYellowItem, colorGreenItem, colorBlueItem]
+        
+        let targetRect = CGRect(x: self.frame.midX, y: self.frame.midY, width: 2, height: 2)
+        menu.setTargetRect(targetRect, in: self)
+        menu.setMenuVisible(true, animated: true)
+    }
+    
+    func selectRedColor(_ sender: UIMenuController) {
+        finishedLineColor = .red
+        UIMenuController.shared.setMenuVisible(false, animated: true)
+    }
+    
+    func selectYellowColor(_ sender: UIMenuController) {
+        finishedLineColor = .yellow
+        UIMenuController.shared.setMenuVisible(false, animated: true)
+    }
+    
+    func selectGreenColor(_ sender: UIMenuController) {
+        finishedLineColor = .green
+        UIMenuController.shared.setMenuVisible(false, animated: true)
+    }
+    
+    func selectBlueColor(_ sender: UIMenuController) {
+        finishedLineColor = .blue
+        UIMenuController.shared.setMenuVisible(false, animated: true)
     }
     
     func moveLine(_ gestureRecognizer: UIPanGestureRecognizer) {
@@ -216,6 +268,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     
     func stroke(_ line: Line) {
         let path = UIBezierPath()
+        
         //path.lineWidth = lineThickness
         path.lineWidth = line.thickness
         path.lineCapStyle = .round
