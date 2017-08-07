@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GCb-dT-903">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GCb-dT-903">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,14 +20,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TJX-JS-KoR"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TJX-JS-KoR">
+                                <rect key="frame" x="0.0" y="112" width="375" height="555"/>
+                            </imageView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="857-OH-qoS">
+                                <rect key="frame" x="108" y="74" width="159" height="29"/>
+                                <segments>
+                                    <segment title="Interesting"/>
+                                    <segment title="Recent"/>
+                                </segments>
+                                <connections>
+                                    <action selector="photoTypeChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="efE-Iu-2f9"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="TJX-JS-KoR" secondAttribute="bottom" id="611-8E-3Us"/>
-                            <constraint firstItem="TJX-JS-KoR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Qfk-3o-Xnj"/>
-                            <constraint firstItem="TJX-JS-KoR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="b7i-OE-Nhd"/>
-                            <constraint firstAttribute="trailing" secondItem="TJX-JS-KoR" secondAttribute="trailing" id="j4X-Zp-nEJ"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="TJX-JS-KoR" secondAttribute="bottom" id="HG4-UZ-crG"/>
+                            <constraint firstItem="857-OH-qoS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="HM8-ZX-6HR"/>
+                            <constraint firstItem="TJX-JS-KoR" firstAttribute="top" secondItem="857-OH-qoS" secondAttribute="bottom" constant="10" id="JJt-ti-5qa"/>
+                            <constraint firstAttribute="trailing" secondItem="TJX-JS-KoR" secondAttribute="trailing" id="ZN6-OP-iez"/>
+                            <constraint firstItem="857-OH-qoS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gu7-Id-0m3"/>
+                            <constraint firstItem="TJX-JS-KoR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="pup-Z4-aOH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Photorama" id="7Hz-aI-o57"/>
@@ -34,7 +51,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1135" y="386"/>
+            <point key="canvasLocation" x="1133.5999999999999" y="385.45727136431788"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="veL-DW-74C">

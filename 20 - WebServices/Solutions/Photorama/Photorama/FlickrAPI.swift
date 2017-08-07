@@ -8,8 +8,12 @@ enum FlickrError: Error {
     case invalidJSONData
 }
 
+/*
+ * Silver Challenge: Fetch Recent Photos from Flickr
+ */
 enum Method: String {
     case interestingPhotos = "flickr.interestingness.getList"
+    case recentPhotos = "flickr.photos.getRecent"
 }
 
 struct FlickrAPI {
@@ -22,9 +26,14 @@ struct FlickrAPI {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter
     }()
-    
+
     static var interestingPhotosURL: URL {
         return flickrURL(method: .interestingPhotos,
+                         parameters: ["extras": "url_h,date_taken"])
+    }
+    
+    static var recentPhotosURL: URL {
+        return flickrURL(method: .recentPhotos,
                          parameters: ["extras": "url_h,date_taken"])
     }
     

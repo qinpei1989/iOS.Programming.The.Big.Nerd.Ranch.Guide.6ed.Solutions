@@ -71,9 +71,8 @@ class PhotoStore {
         task.resume()
     }
     
-    func fetchInterestingPhotos(completion: @escaping (PhotosResult) -> Void) {
-        
-        let url = FlickrAPI.interestingPhotosURL
+    func fetchPhotos(photosURL url: URL, completion: @escaping (PhotosResult) -> Void) {
+        //let url = FlickrAPI.interestingPhotosURL
         let request = URLRequest(url: url)
         let task = session.dataTask(with: request, completionHandler: {
             (data, response, error) -> Void in
