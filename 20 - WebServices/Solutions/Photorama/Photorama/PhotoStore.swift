@@ -50,6 +50,9 @@ class PhotoStore {
         return .success(image)
     }
     
+    /*
+     * Bronze Challenge: Printing the Response Information
+     */
     func fetchImage(for photo: Photo, completion: @escaping (ImageResult) -> Void) {
         
         let photoURL = photo.remoteURL
@@ -57,7 +60,11 @@ class PhotoStore {
         
         let task = session.dataTask(with: request) {
             (data, response, error) -> Void in
-            
+            if let httpResponse = response as? HTTPURLResponse {
+                print(#function)
+                print("statusCode = \(httpResponse.statusCode)")
+                print("headerFileds = \(httpResponse.allHeaderFields)")
+            }
             let result = self.processImageRequest(data: data, error: error)
             completion(result)
         }
@@ -70,7 +77,11 @@ class PhotoStore {
         let request = URLRequest(url: url)
         let task = session.dataTask(with: request, completionHandler: {
             (data, response, error) -> Void in
-            
+            if let httpResponse = response as? HTTPURLResponse {
+                print(#function)
+                print("statusCode = \(httpResponse.statusCode)")
+                print("headerFileds = \(httpResponse.allHeaderFields)")
+            }
             let result = self.processPhotosRequest(data: data, error: error)
             OperationQueue.main.addOperation {
                 completion(result)
