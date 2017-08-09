@@ -7,7 +7,7 @@ If you see any issues or would like to share your thoughts, please contact <qinp
 
 <br />
 
-该项目是我在学习iOS开发入门书籍 **《iOS Programming: The Big Nerd Ranch Guide (6th Edition)》**一书时对每各章结尾练习的解答。每章的解答都是在官网下载的源代码 `www.bignerdranch.com/solutions/iOSProgramming6ed.zip`的基础上修改的。
+该项目是我在学习iOS开发入门书籍 **iOS Programming: The Big Nerd Ranch Guide (6th Edition)**一书时对每各章结尾练习的解答。每章的解答都是在官网下载的源代码 `www.bignerdranch.com/solutions/iOSProgramming6ed.zip`的基础上修改的。
 
 作为一名iOS开发新人，答案中必然有众多不足之处。如果您发现答案中有任何问题或者有更好的思路，欢迎给我发邮件共同讨论：<qinpei1989@gmail.com>。
 
@@ -58,7 +58,7 @@ Map views can display pins, which are instances of MKPinAnnotationView. Add thre
 
 >1. 在地图上显示大头钉需要创建MKAnnotation对象，而MKAnnotation是一个协议，它包含了一个required的坐标值，MKPointAnnotation类实现了此协议
 >2. 如果不需要大头钉扎向地图的动画效果，则可以简单地创建若干个MKPointAnnotation对象，将它们加进mapView即可。若需要动画效果或者是增加大头钉的功能，则需要实现mapView(_:viewFor:)来返回一个MKAnnotationView，而MKPinAnnotationView继承了此类
->3. 注意不能简单地用mapView.userLocation来返回当前用户的位置，因为读取它时总是返回一个nil。我的猜想是系统此时还没有获得用户真正的位置，仍需要等一段时间。因而可换一种思路，建立一个CLLocationManager对象，实现CLLocationManagerDelegate中的locationManager(_:didUpdateLocations:)来获取位置
+>3. 注意不能简单地用mapView.userLocation来返回当前用户的位置，因为系统此时可能还没有获得用户真正的位置，仍需要等一段时间。应该去实现MKMapViewDelegate中的mapView(_:didUpdate:)来获取用户位置
 
 <br />
 
