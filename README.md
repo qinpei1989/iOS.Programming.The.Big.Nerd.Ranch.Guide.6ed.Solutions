@@ -7,7 +7,7 @@ If you see any issues or would like to share your thoughts, please contact <qinp
 
 <br />
 
-该项目是我在学习iOS开发入门书籍**《iOS Programming: The Big Nerd Ranch Guide (6th Edition)》**一书时对每各章结尾练习的解答。每章的解答都是在官网下载的源代码 `www.bignerdranch.com/solutions/iOSProgramming6ed.zip`的基础上修改的。
+该项目是我在学习iOS开发入门书籍 **《iOS Programming: The Big Nerd Ranch Guide (6th Edition)》**一书时对每各章结尾练习的解答。每章的解答都是在官网下载的源代码 `www.bignerdranch.com/solutions/iOSProgramming6ed.zip`的基础上修改的。
 
 作为一名iOS开发新人，答案中必然有众多不足之处。如果您发现答案中有任何问题或者有更好的思路，欢迎给我发邮件共同讨论：<qinpei1989@gmail.com>。
 

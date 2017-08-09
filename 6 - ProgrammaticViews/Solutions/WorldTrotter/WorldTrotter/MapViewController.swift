@@ -11,7 +11,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate {
     
     var mapView: MKMapView!
     var userLocationButton: UIButton!
@@ -125,22 +125,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func showNextPin(_ button: UIButton) {
         print(#function)
+        mapView.showsUserLocation = true
         
-        /*
-         * At the very beginning when current user's location is not available, only append the other two locations in the array.
-         * mapView.userLocation is not reliable, so use locationManager(_:didUpdateLocations:) to get it
-         */
         if userLocation == nil {
             let authorizationStatus = checkLocationAuthorizationStatus()
             if authorizationStatus != .authorizedWhenInUse {
                 return
             }
-            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-            locationManager.delegate = self
-            locationManager.startUpdatingLocation()
-            
-            pinAnnotations.append(generateCustomPinAnnotation(locationName: "Jiaozuo", latitude: 35.14, longitude: 113.13))
-            pinAnnotations.append(generateCustomPinAnnotation(locationName: "New York City", latitude: 40.72, longitude: -74.00))
         }
         
         /* Remove the old pin, then drop a new pin */
@@ -180,17 +171,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         return annotationView
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let newLocation = locations.last!
-        
-        if newLocation.horizontalAccuracy < 0 {
-            return;
-        }
-        
-        if newLocation.horizontalAccuracy <= locationManager.desiredAccuracy && userLocation == nil {
-            userLocation = newLocation
-            pinAnnotations.append(generateCustomPinAnnotation(locationName: "Current Location", latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude))
-            locationManager.stopUpdatingLocation()
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        if let location = userLocation.location {
+            if self.userLocation == nil {
+                self.userLocation = location
+                pinAnnotations.append(generateCustomPinAnnotation(locationName: "Current Location", latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+            }
         }
     }
     
@@ -198,6 +184,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         super.viewDidLoad()
         
         print("MapViewController loaded its view")
+        
+        pinAnnotations.append(generateCustomPinAnnotation(locationName: "Jiaozuo", latitude: 35.14, longitude: 113.13))
+        pinAnnotations.append(generateCustomPinAnnotation(locationName: "New York City", latitude: 40.72, longitude: -74.00))
     }
     
 }
